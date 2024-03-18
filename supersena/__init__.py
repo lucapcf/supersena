@@ -6,7 +6,7 @@ app = Flask(__name__)
 def index():
     if request.method == "POST":
         if request.ok():
-            
+            print("shit")
 
     name = "string"
     return render_template("index.html", name=name)
