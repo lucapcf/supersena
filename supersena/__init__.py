@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 # from app import create_session, add_bet
-from app import session, add_bet
+from supersena.app import session, add_bet
 
 app = Flask(__name__)
 

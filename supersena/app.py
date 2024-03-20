@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, Aposta
+from supersena.models import Base, Aposta
 
 
 engine = create_engine("sqlite:///mydb.db", echo=True)
