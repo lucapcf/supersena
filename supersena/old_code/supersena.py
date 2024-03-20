@@ -4,8 +4,8 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
-class Aposta(Base):
-    __tablename__ = "aposta"
+class Bet(Base):
+    __tablename__ = "bet"
 
     name = Column("name", String, primary_key=True)
     cpf = Column("cpf", String)
@@ -37,9 +37,9 @@ session = Session()
 
 def adiciona():
 
-    aposta = Aposta("Luca", "032.607.973-11", 2, 34, 22, 12, 5)
+    bet = Bet("Luca", "032.607.973-11", 2, 34, 22, 12, 5)
 
-    session.add(aposta)
+    session.add(bet)
     session.commit()
 
 if __name__ == "__main__":

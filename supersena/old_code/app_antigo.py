@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, Aposta
+from models import Base, Bet
 
 def create_session():
     engine = create_engine("sqlite:///mydb.db", echo=True)
@@ -10,13 +10,13 @@ def create_session():
 
 def add_bet(session, name, cpf, n1, n2, n3, n4, n5):
     session = create_session()
-    aposta = Aposta(name, cpf, n1, n2, n3, n4, n5)
+    bet = Bet(name, cpf, n1, n2, n3, n4, n5)
     try:
-        session.add(aposta)
+        session.add(bet)
         session.commit()
-        print(f"Aposta added: {aposta}")
+        print(f"Bet added: {bet}")
     except Exception as e:
-        print(f"Error adding aposta: {e}")
+        print(f"Error adding bet: {e}")
         session.rollback()
     finally:
         session.close()

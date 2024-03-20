@@ -1,0 +1,22 @@
+ APOSTA:
+Cada aposta com exatamente 5 números (1 a 50)
+Escolha manual ou "aposta surpresinha"
+Apostas com: Nome, CPF e aposta
+Apostas ilimitadas por pessoa
+Cada aposta tem um número sequencial iniciando em 1000
+
+
+
+SORTEIO:
+Sorteio aleatório
+
+APURAÇÃO:
+Só há premiação para o acerto de exatemente 5 números (todos)
+Se não houver vencedor 1 novo número é sorteado (sorteio único)
+Caso não houver vencedores ao fim de 25 sorteios únicos adicionais finaliza sem vencedor
+Cada novo número é adicionado à lista de números sorteados
+
+
+PREMIAÇÃO:
+Mostra a lista de apostas vencedoras (ordenada alfabetica) ou uma mensagem de que não houve vencedores
+Mostra a lista de números sorteados e iniciar o processo de premiação
