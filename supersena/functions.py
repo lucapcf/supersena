@@ -208,12 +208,36 @@ def verification():
 # 22              18
 # 12              6
 
+    number_counts = {}
+    num_quant = ""
+
+    # Iterate over each number in the list
+    bets = session.query(Bet).all()
+    for bet in bets:
+        for number in bet.to_list():
+            # If the number is already in the dictionary, it is incremented
+            if number in number_counts:
+                number_counts[number] += 1
+            # Otherwise, the number is added to the dictionary with 1 occurence
+            else:
+                number_counts[number] = 1
+
+
+    num_quant += (f"{'Númeoro apostado':^10}{'Quantidade de apostas':^10}\n")
+
+    for number, count in number_counts.items():
+        num_quant +=  (f"{number:^10}{count:^10}\n")
+
+
+
+
 
 
     text = ("Números sorteados: " + numbers_drawn_str + "\n" +
             "Número de rodadas: " + n_draws_str + "\n" +
             "Número de apostas vencedoras: " + n_winning_bets_str + "\n"
-            "winning_bets:\n" + winning_bets_string)
+            "winning_bets:\n" + winning_bets_string + "\n" +
+            num_quant)
 
     return text
 

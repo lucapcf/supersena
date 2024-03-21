@@ -4,23 +4,23 @@ from supersena.models import Person, Bet
 
 app = Flask(__name__)
 
+
+# @app.after_request
+# def add_header(response):
+#     """
+#     Add headers to both force latest IE rendering engine or Chrome Frame,
+#     and also to cache the rendered page for 10 minutes.
+#     """
+#     # response.headers['Cache-Control'] = 'public, max-age=600'
+#     # response.headers['Pragma'] = 'no-cache'
+#     # response.headers['Expires'] = '0'
+#     response.headers['Cache-Control'] = "no-store"
+#     return response
+
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template("index.html")
-    # if request.method == "GET":
-    #     if "restart" in request.args:
-    #         return render_template("index.html", text=text)
-    #     else:
-    #         return "<p>ERROR</p>"
-    # else:
-    #     return "<p>ERROR</p>"
-    # if request.method == "GET":
-    #     if "start" in request.form:
-    #     # return redirect(url_for("index"))
-    #         return redirect(url_for(""))
-    # else:
-    # return render_template("index.html")
 
 
 @app.route('/bet', methods=["POST", "GET"])
@@ -60,24 +60,6 @@ def bet():
                 text = list_bets()
                 return "<p>ERROR</p>"
 
-
-        # elif "surpresinha" in request.form:
-        #     numbers = surpresinha()
-
-        #     n1 = numbers[0]
-        #     n2 = numbers[1]
-        #     n3 = numbers[2]
-        #     n4 = numbers[3]
-        #     n5 = numbers[4]
-
-
-
-
-# @app.route('/list', methods=["GET"])
-# def list():
-#     result = session.query(Bet).all()
-#     print("Bets?", result)
-#     return "<p>deu</p>"
 
 @app.route('/surpresinha', methods=["POST", "GET"])
 def surpresinha():
@@ -121,6 +103,7 @@ def surpresinha():
         clear_database()
         text = list_bets()
         return "<p>ERROR</p>"
+
 
 @app.route('/results', methods=["GET"])
 def results():
