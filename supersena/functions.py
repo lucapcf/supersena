@@ -100,7 +100,53 @@ def draw():
 #     # print("query: ", query)
 #     print("query: ", names)
 
+def verification():
+    winners_cpf = []
 
+    # winning_numbers = draw()
+
+    winning_numbers = [1, 1, 1, 1, 1]
+
+    bets = session.query(Bet).all()
+
+
+    winning_bets = session.query(Bet).filter(   Bet.n1 == winning_numbers[0],
+                                                Bet.n2 == winning_numbers[1],
+                                                Bet.n3 == winning_numbers[2],
+                                                Bet.n4 == winning_numbers[3],
+                                                Bet.n5 == winning_numbers[4]
+                                            ).all()
+    
+    print("\n\n winning bets!!!\n\n", winning_bets)
+
+    # for winning_bet in winning_bets:
+    #     winners = 
+
+
+    #          person = session.query(Person).filter(Person.cpf == cpf).all()
+
+    # for bet in bets:
+    #     if (bet.n1 == winning_numbers[0] and
+    #         bet.n2 == winning_numbers[1] and
+    #         bet.n3 == winning_numbers[2] and
+    #         bet.n4 == winning_numbers[3] and
+    #         bet.n5 == winning_numbers[4]):
+
+    #         winners_cpf.append(bet.person_cpf)
+
+    # persons = session.query(Person).all()
+
+    # for person in persons:
+    #     if person.cpf == 
+
+
+def clear_database():
+    session.query(Bet).delete()
+    session.query(Person).delete()
+    session.commit()
+
+
+    
 def main():
     pass
 

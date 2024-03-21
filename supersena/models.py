@@ -4,28 +4,19 @@ from sqlalchemy.orm import Relationship
 
 Base = declarative_base()
 
-# class Bet(Base):
-#     __tablename__ = "bet"
-
-#     name = Column("name", String, primary_key=True)
-#     cpf = Column("cpf", String)
-#     n1 = Column("n1", Integer)
-#     n2 = Column("n2", Integer)
-#     n3 = Column("n3", Integer)
-#     n4 = Column("n4", Integer)
-#     n5 = Column("n5", Integer)
-
 class Person(Base):
     __tablename__ = "persons"
 
     cpf = Column("cpf", String, primary_key=True, nullable=False)
     name = Column("name", String, nullable=False)
-    # bet_id = Column("bet_id", String, ForeignKey())
     bets = Relationship("Bet", back_populates="person")
 
     def __init__(self, name, cpf):
         self.name = name
         self.cpf = cpf
+
+    # def __repr__(self):
+    # return f"({self.bet_id}) ({self.n1} {self.n2} {self.n3} {self.n5} {self.n5}) {self.person_cpf}"
 
 class Bet(Base):
     __tablename__ = "bets"

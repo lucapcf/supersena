@@ -20,3 +20,22 @@ Cada novo número é adicionado à lista de números sorteados
 PREMIAÇÃO:
 Mostra a lista de apostas vencedoras (ordenada alfabetica) ou uma mensagem de que não houve vencedores
 Mostra a lista de números sorteados e iniciar o processo de premiação
+
+PRINTS:
+
+1) numeros sorteados
+
+2) numero de rodadas
+
+3) numero de apostas vencedoras
+
+4) lista de apostas vencedoras ordenada alfabeticamente ou "sem vencedores"
+
+5) lista dos números apostados
+
+6)
+Nro apostado    Qtd de apostas
+42              28
+19              25
+22              18
+12              6

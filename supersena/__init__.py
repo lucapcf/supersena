@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect
-from supersena.functions import session, add_bet, add_person, list_bets
+from flask import Flask, render_template, request, redirect, url_for
+from supersena.functions import session, add_bet, add_person, list_bets, draw, verification, clear_database
 from supersena.models import Person, Bet
 
 app = Flask(__name__)
@@ -8,44 +8,117 @@ app = Flask(__name__)
 @app.route('/index')
 def index():
     return render_template("index.html")
+    # if request.method == "GET":
+    #     if "restart" in request.args:
+    #         return render_template("index.html", text=text)
+    #     else:
+    #         return "<p>ERROR</p>"
+    # else:
+    #     return "<p>ERROR</p>"
+    # if request.method == "GET":
+    #     if "start" in request.form:
+    #     # return redirect(url_for("index"))
+    #         return redirect(url_for(""))
+    # else:
+    # return render_template("index.html")
 
 
 @app.route('/bet', methods=["POST", "GET"])
-def bet():    
+def bet():
     if request.method == "POST":
-        # if request.ok():
-        name = request.form.get('name')
-        cpf = request.form.get('cpf')
-        n1 = request.form.get('n1')
-        n2 = request.form.get('n2')
-        n3 = request.form.get('n3')
-        n4 = request.form.get('n4')
-        n5 = request.form.get('n5')
+        if "send" in request.form:
+            name = request.form.get('name')
+            cpf = request.form.get('cpf')
+            n1 = request.form.get('n1')
+            n2 = request.form.get('n2')
+            n3 = request.form.get('n3')
+            n4 = request.form.get('n4')
+            n5 = request.form.get('n5')
+
+            person = session.query(Person).filter(Person.cpf == cpf).all()
+
+            if not person:
+                person = add_person(session, name, cpf)
+
+            add_bet(session, n1, n2, n3, n4, n5, cpf)
+            text = list_bets()
+            return render_template("bet.html", text=text)
+        if "start" in request.form:
+            text = list_bets()
+            return render_template("bet.html", text=text)
+    else:
+        if request.method == "GET":
+            if "start" in request.args:
+                clear_database()
+                text = list_bets()
+                return render_template("bet.html", text=text)
+            elif "surpresinha" in request.args:
+                text = list_bets()
+                return render_template("bet.html", text=text)
+            else:
+                clear_database()
+                text = list_bets()
+                return "<p>ERROR</p>"
 
 
-        person = session.query(Person).filter(Person.cpf == cpf).all()
+        # elif "surpresinha" in request.form:
+        #     numbers = surpresinha()
 
-        if not person:
-            person = add_person(session, name, cpf)
+        #     n1 = numbers[0]
+        #     n2 = numbers[1]
+        #     n3 = numbers[2]
+        #     n4 = numbers[3]
+        #     n5 = numbers[4]
 
-        add_bet(session, n1, n2, n3, n4, n5, cpf)
 
-        # session = add_bet(session, name, cpf, n1, n2, n3, n4, n5)
 
-    text = list_bets()
 
-    return render_template("bet.html", text=text)
-
-@app.route('/results', methods=["GET"])
-def results():
-    text = list_bets()
-    return render_template("results.html", text=text)
-
-@app.route('/listar', methods=["GET"])
-def listar():
+@app.route('/list', methods=["GET"])
+def list():
     result = session.query(Bet).all()
     print("Bets?", result)
     return "<p>deu</p>"
+
+@app.route('/surpresinha', methods=["POST", "GET"])
+def surpresinha():
+    if request.method == "POST":
+        if "sent" in request.form:
+            numbers = draw()
+
+            name = request.form.get('name')
+            cpf = request.form.get('cpf')
+            n1 = numbers[0]
+            n2 = numbers[1]
+            n3 = numbers[2]
+            n4 = numbers[3]
+            n5 = numbers[4]
+
+            person = session.query(Person).filter(Person.cpf == cpf).all()
+
+            if not person:
+                person = add_person(session, name, cpf)
+
+            add_bet(session, n1, n2, n3, n4, n5, cpf)
+
+            text = list_bets()
+            return render_template("surpresinha.html", text=text)
+        else:
+            return "<p>ERROR</p>"
+    elif request.method == "GET":
+        if "bet" in request.args:
+            text = list_bets()
+            return render_template("surpresinha.html", text=text)
+        else:
+            return "<p>ERROR</p>"
+
+    # return render_template("surpresinha.html", text=text)
+
+
+@app.route('/results', methods=["GET"])
+def results():
+    text = verification()
+    return render_template("results.html", text=text)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

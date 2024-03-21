@@ -10,6 +10,12 @@
 <body>
     <h1>PREMIAÇÃO</h1>
     <pre>{{text}}</pre>
+    <!-- <a href="{{ url_for('index') }}">
+        <button>Começar nova rodada</button>
+    </a> -->
+    <form action="{{ url_for('index') }}" method="GET">
+        <button type="submit" name="restart">Começar nova rodada</button>
+    </form>
 
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
