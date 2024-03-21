@@ -26,7 +26,7 @@ def index():
 @app.route('/bet', methods=["POST", "GET"])
 def bet():
     if request.method == "POST":
-        if "send" in request.form:
+        if "sent" in request.form:
             name = request.form.get('name')
             cpf = request.form.get('cpf')
             n1 = request.form.get('n1')
@@ -73,20 +73,25 @@ def bet():
 
 
 
-@app.route('/list', methods=["GET"])
-def list():
-    result = session.query(Bet).all()
-    print("Bets?", result)
-    return "<p>deu</p>"
+# @app.route('/list', methods=["GET"])
+# def list():
+#     result = session.query(Bet).all()
+#     print("Bets?", result)
+#     return "<p>deu</p>"
 
 @app.route('/surpresinha', methods=["POST", "GET"])
 def surpresinha():
     if request.method == "POST":
         if "sent" in request.form:
-            numbers = draw()
 
             name = request.form.get('name')
             cpf = request.form.get('cpf')
+
+            numbers = []
+
+            for i in range(5):
+                numbers.append(draw())
+
             n1 = numbers[0]
             n2 = numbers[1]
             n3 = numbers[2]
@@ -109,15 +114,28 @@ def surpresinha():
             text = list_bets()
             return render_template("surpresinha.html", text=text)
         else:
+            clear_database()
+            text = list_bets()
             return "<p>ERROR</p>"
-
-    # return render_template("surpresinha.html", text=text)
-
+    else:
+        clear_database()
+        text = list_bets()
+        return "<p>ERROR</p>"
 
 @app.route('/results', methods=["GET"])
 def results():
-    text = verification()
-    return render_template("results.html", text=text)
+    if request.method == "GET":
+        if "draw" in request.args:
+            text = verification()
+            return render_template("results.html", text=text)
+        else:
+            clear_database()
+            text = list_bets()
+            return "<p>ERROR</p>"
+    else:
+        clear_database()
+        text = list_bets()
+        return "<p>ERROR</p>"
 
 
 if __name__ == "__main__":

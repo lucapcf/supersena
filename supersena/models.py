@@ -43,3 +43,7 @@ class Bet(Base):
 
     def __repr__(self):
         return f"({self.bet_id}) ({self.n1} {self.n2} {self.n3} {self.n5} {self.n5}) {self.person_cpf}"
+    
+    def to_list(self):
+        """Return the bet numbers as a list."""
+        return [self.n1, self.n2, self.n3, self.n4, self.n5]
