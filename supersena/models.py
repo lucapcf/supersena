@@ -4,6 +4,7 @@ from sqlalchemy.orm import Relationship
 
 Base = declarative_base()
 
+# The class Person relates to Bet with a relation of one to many
 class Person(Base):
     __tablename__ = "persons"
 
@@ -15,9 +16,10 @@ class Person(Base):
         self.name = name
         self.cpf = cpf
 
-    # def __repr__(self):
-    # return f"({self.bet_id}) ({self.n1} {self.n2} {self.n3} {self.n5} {self.n5}) {self.person_cpf}"
+    def __repr__(self):
+        return f"({self.cpf}) ({self.name})"
 
+# The class Bet
 class Bet(Base):
     __tablename__ = "bets"
 
@@ -31,7 +33,6 @@ class Bet(Base):
 
     person = Relationship("Person", back_populates="bets")
 
-
     def __init__(self, bet_id, n1, n2, n3, n4, n5, person_cpf):
         self.bet_id = bet_id
         self.n1 = n1
@@ -40,10 +41,11 @@ class Bet(Base):
         self.n4 = n4
         self.n5 = n5
         self.person_cpf = person_cpf
+        
 
     def __repr__(self):
-        return f"({self.bet_id}) ({self.n1} {self.n2} {self.n3} {self.n5} {self.n5}) {self.person_cpf}"
-    
+        return f"ID da aposta: {self.bet_id} | Números: {self.n1} {self.n2} {self.n3} {self.n4} {self.n5} | CPF do apostador: {self.person_cpf}"
+
     def to_list(self):
         """Return the bet numbers as a list."""
         return [self.n1, self.n2, self.n3, self.n4, self.n5]

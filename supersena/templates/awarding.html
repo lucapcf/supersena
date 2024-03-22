@@ -11,10 +11,10 @@
         <span class="navbar-brand mb-0 h1">Super Sena</span>
     </nav>
     <div class="container mt-4">
-        <h1 class="mb-4">Apuração</h1>
+        <h1 class="mb-4">Premiação</h1>
         <pre>{{ text }}</pre>
-        <form action="{{ url_for('awarding') }}" method="GET">
-            <button type="submit" class="btn btn-primary" name="results">Premiações</button>
+        <form action="{{ url_for('index') }}" method="GET">
+            <button type="submit" class="btn btn-primary" name="restart">Começar nova rodada</button>
         </form>
     </div>
 
